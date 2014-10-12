@@ -5,10 +5,11 @@ var app = app || {};
 app.player = {
 	color: "red",
 	x: 320,
-	y: 420,
-	width: 34,
-	height: 42,
+	y: 470,
+	width: 16,
+	height: 20,
 	speed: 250,
+	jumpHeight: 40,
 	image: undefined,
 
 	init: function(){
@@ -26,5 +27,17 @@ app.player = {
 		}
 		ctx.restore();
 
+	},
+
+	moveLeft: function(dt){
+		this.x -= this.speed * dt;
+	},
+	
+	moveRight: function(dt){
+		this.x += this.speed * dt;
+	},
+	
+	jump: function(dt){
+		this.y -= this.jumpHeight;
 	}
 }; // end app.player

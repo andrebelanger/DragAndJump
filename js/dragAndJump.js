@@ -3,12 +3,14 @@
 var app = app || {};
 
 app.dragAndJump = {
-	//CONSTANT properties
+	// CONSTANT properties
 	WIDTH : 640,
 	HEIGHT: 480,
 	canvas: undefined,
 	ctx: undefined,
 	player: undefined,
+	dt: 1/60.0, // "delta time"
+	app:undefined,
 
 	// methods
 	init : function(player){
@@ -31,7 +33,7 @@ app.dragAndJump = {
 		this.ctx.clearRect(0,0,this.WIDTH, this.HEIGHT);
 
 		// UPDATE
-		this.player.draw(this.ctx);
+		this.moveSprites();
 
 		this.ctx.fillStyle = "gray";
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
@@ -39,7 +41,21 @@ app.dragAndJump = {
 		this.player.draw(this.ctx);
 
 		// LOOP
-		requestAnimationFrame(function(){this.update});
+		requestAnimationFrame(this.update.bind(this));
+	},
+
+	moveSprites: function(){
+		// Ask "Key Daemon" which keys are down
+		if(this.app.keydown[this.app.KEYBOARD.KEY_LEFT]){
+			this.player.moveLeft(this.dt);
+		}
+
+		if(this.app.keydown[this.app.KEYBOARD.KEY_RIGHT]){
+			this.player.moveRight(this.dt);
+		}
+
+		if(this.app.keydown[this.app.KEYBOARD.KEY_SPACE]){
+			//this.player.jump(this.dt);
+		}
 	}
-	
 } // end app.dragAndJump
