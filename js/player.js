@@ -9,8 +9,11 @@ app.player = {
 	width: 16,
 	height: 20,
 	speed: 250,
-	jumpHeight: 40,
+	maxJumpHeight: 70, 
+	jumpHeight: 0,
 	image: undefined,
+	jumping: false,
+	isOnSolidGround: true,
 
 	init: function(){
 		console.log("app.player.init() called");
@@ -28,6 +31,26 @@ app.player = {
 		ctx.restore();
 
 	},
+	
+	update: function(dt) {
+		if(this.y >= 470) {
+			this.y = 470;
+			this.isOnSolidGround = true;
+		}
+		
+		if(this.jumping){
+			this.isOnSolidGround = false;
+			this.y -= this.speed * dt;
+			this.jumpHeight += this.speed * dt;
+			
+			if(this.jumpHeight >= this.maxJumpHeight) {
+				this.jumping = false;
+				this.jumpHeight = 0;
+			}
+		} else if(!this.isOnSolidGround){
+			this.y += 2;
+		}
+	},
 
 	moveLeft: function(dt){
 		this.x -= this.speed * dt;
@@ -35,9 +58,5 @@ app.player = {
 	
 	moveRight: function(dt){
 		this.x += this.speed * dt;
-	},
-	
-	jump: function(dt){
-		this.y -= this.jumpHeight;
 	}
 }; // end app.player

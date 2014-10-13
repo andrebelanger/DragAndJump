@@ -38,13 +38,14 @@ app.dragAndJump = {
 		this.ctx.fillStyle = "gray";
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
 
-		this.player.draw(this.ctx);
+		this.player.draw(this.ctx); 
 
 		// LOOP
 		requestAnimationFrame(this.update.bind(this));
 	},
 
 	moveSprites: function(){
+		this.player.update(this.dt);
 		// Ask "Key Daemon" which keys are down
 		if(this.app.keydown[this.app.KEYBOARD.KEY_LEFT]){
 			this.player.moveLeft(this.dt);
@@ -55,7 +56,13 @@ app.dragAndJump = {
 		}
 
 		if(this.app.keydown[this.app.KEYBOARD.KEY_SPACE]){
-			//this.player.jump(this.dt);
+			if(this.player.isOnSolidGround){
+				this.player.jumping = true;
+				this.player.isOnSolidGround = false;
+				this.spaceReleased = false;
+			} 
+		} else {
+			this.player.jumping = false;
 		}
 	}
 } // end app.dragAndJump
