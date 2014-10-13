@@ -29,7 +29,7 @@ app.dragAndJump = {
 		
 		// set up platform
 		this.platform = platform;
-		this.platform.init(20,20,50,50);
+		this.platform.init(350,430,50,20);
 		this.update();
 	},
 
@@ -42,6 +42,9 @@ app.dragAndJump = {
 
 		this.ctx.fillStyle = "gray";
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
+		
+		// CHECK FOR COLLISIONS
+		this.checkForCollisions();
 
 		// DRAW
 		this.player.draw(this.ctx);
@@ -71,5 +74,26 @@ app.dragAndJump = {
 		} else {
 			this.player.jumping = false;
 		}
+	},
+	
+	checkForCollisions : function(){
+		var self = this;
+		
+		// player v. platform
+		if(self.collides(this.player, this.platform)){
+			console.log("Collision detected!");
+		}
+	},
+	
+	collides: function (a, b) {
+		var ax = a.x - a.width/2;
+		var ay = a.y - a.height/2;
+		var bx = b.x - b.width/2;
+		var by = b.y - b.height/2;
+		
+		return  ax < bx + b.width &&
+				ax + a.width > bx &&
+			   ay < by + b.height &&
+				ay + a.height > by;
 	}
 } // end app.dragAndJump
