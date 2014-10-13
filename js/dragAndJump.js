@@ -29,7 +29,7 @@ app.dragAndJump = {
 		
 		// set up platform
 		this.platform = platform;
-		this.platform.init(350,430,50,20);
+		this.platform.init(380,470,50,20);
 		this.update();
 	},
 
@@ -44,6 +44,7 @@ app.dragAndJump = {
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
 		
 		// CHECK FOR COLLISIONS
+		//console.log("Jumping: " + this.player.jumping);
 		this.checkForCollisions();
 
 		// DRAW
@@ -81,7 +82,24 @@ app.dragAndJump = {
 		
 		// player v. platform
 		if(self.collides(this.player, this.platform)){
-			console.log("Collision detected!");
+			
+			var hd = Math.abs((this.player.x * this.player.x) + (this.platform.x * this.platform.x));
+			var vd = Math.abs((this.player.y * this.player.y) + (this.platform.y * this.platform.y));
+			//console.log("Collision detected!");
+			if(vd > hd)
+			{
+				if(this.player.y < this.platform.y)
+				{
+					// landed on top of platform
+					//console.log("Platform landed on!");
+					this.player.y = this.platform.y-this.platform.height;
+					this.player.isOnSolidGround = true;
+				}
+			}
+		}
+		else{
+			this.player.isOnSolidGound = false;
+			//console.log("Set to false");
 		}
 	},
 	
@@ -91,9 +109,9 @@ app.dragAndJump = {
 		var bx = b.x - b.width/2;
 		var by = b.y - b.height/2;
 		
-		return  ax < bx + b.width &&
-				ax + a.width > bx &&
-			   ay < by + b.height &&
-				ay + a.height > by;
+		return  ax <= bx + b.width &&
+				ax + a.width >= bx &&
+			   ay <= by + b.height &&
+				ay + a.height >= by;
 	}
 } // end app.dragAndJump
