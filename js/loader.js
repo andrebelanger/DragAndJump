@@ -16,7 +16,7 @@ app.keydown = [];
 window.onload = function(){
 	console.log("window.onload called");
 	app.dragAndJump.app = app;
-	app.dragAndJump.init(app.player);
+	app.dragAndJump.init(app.player, app.platform);
 
 	// key press event listeners
 	window.addEventListener("keydown", function(e){

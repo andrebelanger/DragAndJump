@@ -9,11 +9,12 @@ app.dragAndJump = {
 	canvas: undefined,
 	ctx: undefined,
 	player: undefined,
+	platform: undefined, // FOR NOW: one platform
 	dt: 1/60.0, // "delta time"
 	app:undefined,
 
 	// methods
-	init : function(player){
+	init : function(player, platform){
 		console.log("app.dragAndJump.init() called");
 
 		this.canvas = document.querySelector('canvas');
@@ -24,7 +25,11 @@ app.dragAndJump = {
 		// set up player
 		this.player = player;
 		this.player.init();
-
+		
+		
+		// set up platform
+		this.platform = platform;
+		this.platform.init(20,20,50,50);
 		this.update();
 	},
 
@@ -38,7 +43,9 @@ app.dragAndJump = {
 		this.ctx.fillStyle = "gray";
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
 
-		this.player.draw(this.ctx); 
+		// DRAW
+		this.player.draw(this.ctx);
+		this.platform.draw(this.ctx);
 
 		// LOOP
 		requestAnimationFrame(this.update.bind(this));
