@@ -24,6 +24,9 @@ app.dragAndJump = {
 
 		// set up player
 		this.player = player;
+		var image = new Image();
+		image.src = this.app.IMAGES['playerImage'];
+		this.player.image = image; 
 		this.player.init();
 		
 		
@@ -44,7 +47,6 @@ app.dragAndJump = {
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
 		
 		// CHECK FOR COLLISIONS
-		//console.log("Jumping: " + this.player.jumping);
 		this.checkForCollisions();
 
 		// DRAW
@@ -86,7 +88,7 @@ app.dragAndJump = {
 			if(this.player.y < this.platform.y)
 			{
 				// landed on top of platform
-				console.log("Platform landed on!");
+				//console.log("Platform landed on!");
 				this.player.y = this.platform.y-this.platform.height/2-this.player.height/2;
 				this.player.isOnSolidGround = true;
 				this.player.jumping = false;
@@ -94,7 +96,7 @@ app.dragAndJump = {
 			}
 			else
 			{	
-				console.log("platform bottom hit");
+				//console.log("platform bottom hit");
 			}
 			
 			if(this.player.x > this.platform.x)

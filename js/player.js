@@ -28,6 +28,8 @@ app.player = {
 		if(!this.image){
 			ctx.fillStyle = this.color;
 			ctx.fillRect(this.x - halfW, this.y - halfH, this.width, this.height);
+		} else {
+			ctx.drawImage(this.image, 0, 0, 174, 185, this.x - halfW, this.y - halfH, this.width, this.height);
 		}
 		ctx.restore();
 
