@@ -9,6 +9,7 @@ app.player = {
 	width: 16,
 	height: 20,
 	speed: 250,
+	gravity: 0,
 	maxJumpHeight: 70, 
 	jumpHeight: 0,
 	image: undefined,
@@ -36,6 +37,7 @@ app.player = {
 		if(this.y >= 470) {
 			this.y = 470;
 			this.isOnSolidGround = true;
+			this.gravity = 0;
 		}
 		
 		if(this.jumping){
@@ -48,8 +50,10 @@ app.player = {
 				this.jumpHeight = 0;
 			}
 		} else if(!this.isOnSolidGround){
-			this.y += 2;
+			this.gravity = 2;
 		}
+		
+		this.y += this.gravity;
 	},
 
 	moveLeft: function(dt){

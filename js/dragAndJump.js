@@ -29,7 +29,7 @@ app.dragAndJump = {
 		
 		// set up platform
 		this.platform = platform;
-		this.platform.init(380,470,50,20);
+		this.platform.init(380,460,50,60);
 		this.update();
 	},
 
@@ -56,7 +56,7 @@ app.dragAndJump = {
 	},
 
 	moveSprites: function(){
-		this.player.update(this.dt);
+
 		// Ask "Key Daemon" which keys are down
 		if(this.app.keydown[this.app.KEYBOARD.KEY_LEFT]){
 			this.player.moveLeft(this.dt);
@@ -75,6 +75,7 @@ app.dragAndJump = {
 		} else {
 			this.player.jumping = false;
 		}
+		this.player.update(this.dt);
 	},
 	
 	checkForCollisions : function(){
@@ -82,24 +83,31 @@ app.dragAndJump = {
 		
 		// player v. platform
 		if(self.collides(this.player, this.platform)){
-			
-			var hd = Math.abs((this.player.x * this.player.x) + (this.platform.x * this.platform.x));
-			var vd = Math.abs((this.player.y * this.player.y) + (this.platform.y * this.platform.y));
-			//console.log("Collision detected!");
-			if(vd > hd)
+			if(this.player.y < this.platform.y)
 			{
-				if(this.player.y < this.platform.y)
-				{
-					// landed on top of platform
-					//console.log("Platform landed on!");
-					this.player.y = this.platform.y-this.platform.height;
-					this.player.isOnSolidGround = true;
-				}
+				// landed on top of platform
+				console.log("Platform landed on!");
+				this.player.y = this.platform.y-this.platform.height/2-this.player.height/2;
+				this.player.isOnSolidGround = true;
+				this.player.jumping = false;
+				return;
+			}
+			else
+			{	
+				console.log("platform bottom hit");
+			}
+			
+			if(this.player.x > this.platform.x)
+			{
+				this.player.x = this.platform.x+this.platform.width/2+this.player.width/2;
+			} 
+			else {
+				this.player.x = this.platform.x-this.platform.width/2-this.player.width/2;
 			}
 		}
 		else{
-			this.player.isOnSolidGound = false;
-			//console.log("Set to false");
+			this.player.isOnSolidGound = false
+			this.gravity = 2;
 		}
 	},
 	
