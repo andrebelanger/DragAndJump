@@ -2,14 +2,10 @@
 
 var app = app || {};
 
-app.platform = {
-	color: "black",
-	x: undefined,
-	y: undefined,
-	width: undefined,
-	height: undefined,
+app.Platform = function(){
+
 	
-	init: function (x,y,width,height){
+	function Platform(x,y,width,height){
 		console.log(width + "x" + height + " platform created at " + x + "," + y);
 		
 		// set size and starting position of platform
@@ -17,9 +13,12 @@ app.platform = {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-	},
+		this.color = "black";
+	};
 	
-	draw: function(ctx){
+	var p = Platform.prototype;
+	
+	p.draw = function(ctx){
 	
 		var halfW = this.width/2;
 		var halfH = this.height/2;
@@ -29,6 +28,7 @@ app.platform = {
 		ctx.fillRect(this.x - halfW, this.y - halfH, this.width, this.height);
 		
 		ctx.restore();
-	}
+	};
 	
-}
+	return Platform;
+}();

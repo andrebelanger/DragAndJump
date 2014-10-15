@@ -9,6 +9,7 @@ app.dragAndJump = {
 	canvas: undefined,
 	ctx: undefined,
 	player: undefined,
+	platforms: [],
 	platform: undefined, // FOR NOW: one platform
 	dt: 1/60.0, // "delta time"
 	app:undefined,
@@ -31,8 +32,10 @@ app.dragAndJump = {
 		
 		
 		// set up platform
-		this.platform = platform;
-		this.platform.init(380,460,50,60);
+		//this.platform = platform;
+		//this.platform.init(380,460,50,60);
+		
+		this.platforms.push(new app.Platform(380,460,50,60));
 		this.update();
 	},
 
@@ -51,7 +54,10 @@ app.dragAndJump = {
 
 		// DRAW
 		this.player.draw(this.ctx);
-		this.platform.draw(this.ctx);
+		//this.platform.draw(this.ctx);
+		for(var i=0; i < this.platforms.length; i++){
+			this.platforms[i].draw(this.ctx);
+		};
 
 		// LOOP
 		requestAnimationFrame(this.update.bind(this));
@@ -84,33 +90,36 @@ app.dragAndJump = {
 		var self = this;
 		
 		// player v. platform
-		if(self.collides(this.player, this.platform)){
-			if(this.player.y < this.platform.y)
-			{
-				// landed on top of platform
-				//console.log("Platform landed on!");
-				this.player.y = this.platform.y-this.platform.height/2-this.player.height/2;
-				this.player.isOnSolidGround = true;
-				this.player.jumping = false;
-				return;
+		this.platforms.forEach(function(platform) {
+			if(self.collides(self.player, platform)){
+				if(self.player.y < platform.y)
+				{
+					// landed on top of platform
+					//console.log("Platform landed on!");
+					self.player.y = platform.y-platform.height/2-self.player.height/2;
+					self.player.isOnSolidGround = true;
+					self.player.jumping = false;
+					return;
+				}
+				else
+				{	
+					//console.log("platform bottom hit");
+				}
+				
+				if(self.player.x > platform.x)
+				{
+					self.player.x = platform.x+platform.width/2+self.player.width/2;
+				} 
+				else {
+					self.player.x = platform.x-platform.width/2-self.player.width/2;
+				}
 			}
-			else
-			{	
-				//console.log("platform bottom hit");
+			else{
+				self.player.isOnSolidGound = false
+				if(!self.player.jumping)
+					self.player.gravity = 2;
 			}
-			
-			if(this.player.x > this.platform.x)
-			{
-				this.player.x = this.platform.x+this.platform.width/2+this.player.width/2;
-			} 
-			else {
-				this.player.x = this.platform.x-this.platform.width/2-this.player.width/2;
-			}
-		}
-		else{
-			this.player.isOnSolidGound = false
-			this.gravity = 2;
-		}
+		});
 	},
 	
 	collides: function (a, b) {

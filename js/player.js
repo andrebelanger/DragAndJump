@@ -36,6 +36,7 @@ app.player = {
 	},
 	
 	update: function(dt) {
+		this.y += this.gravity;
 		if(this.y >= 470) {
 			this.y = 470;
 			this.isOnSolidGround = true;
@@ -48,14 +49,19 @@ app.player = {
 			this.jumpHeight += this.speed * dt;
 			
 			if(this.jumpHeight >= this.maxJumpHeight) {
+				console.log("jump set to false");
 				this.jumping = false;
 				this.jumpHeight = 0;
 			}
-		} else if(!this.isOnSolidGround){
+		}
+		
+		if(this.isOnSolidGround) {
+			this.gravity = 0;
+		}
+		else if(!this.jumping){
 			this.gravity = 2;
 		}
 		
-		this.y += this.gravity;
 	},
 
 	moveLeft: function(dt){
