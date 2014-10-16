@@ -10,7 +10,7 @@ app.dragAndJump = {
 	ctx: undefined,
 	player: undefined,
 	platforms: [],
-	platform: undefined, // FOR NOW: one platform
+	gate: undefined,
 	dt: 1/60.0, // "delta time"
 	app:undefined,
 
@@ -38,6 +38,9 @@ app.dragAndJump = {
 		this.platforms.push(new app.Platform(380,460,50,60));
 		this.platforms.push(new app.Platform(470,420,50,30));
 
+		// set up gate
+		this.gate = new app.Gate(100,100);
+
 		this.update();
 	},
 
@@ -60,6 +63,7 @@ app.dragAndJump = {
 		for(var i=0; i < this.platforms.length; i++){
 			this.platforms[i].draw(this.ctx);
 		};
+		this.gate.draw(this.ctx);
 
 		// LOOP
 		requestAnimationFrame(this.update.bind(this));

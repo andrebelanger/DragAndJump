@@ -26,7 +26,7 @@ window.onload = function(){
 	app.queue.installPlugin(createjs.Sound);
 	app.queue.on("complete", function(){
 		console.log("images loaded called");
-		app.dragAndJump.init(app.player, app.platform);
+		app.dragAndJump.init(app.player);
 	});
 	
 	app.queue.loadManifest([
