@@ -59,7 +59,7 @@ app.player = {
 			this.gravity = 0;
 		}
 		else if(!this.jumping){
-			this.gravity = 2;
+			this.gravity = 3;
 		}
 		
 	},

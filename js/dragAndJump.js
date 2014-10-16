@@ -36,6 +36,8 @@ app.dragAndJump = {
 		//this.platform.init(380,460,50,60);
 		
 		this.platforms.push(new app.Platform(380,460,50,60));
+		this.platforms.push(new app.Platform(470,420,50,30));
+
 		this.update();
 	},
 
@@ -78,10 +80,9 @@ app.dragAndJump = {
 			if(this.player.isOnSolidGround){
 				this.player.jumping = true;
 				this.player.isOnSolidGround = false;
-				this.spaceReleased = false;
 			} 
 		} else {
-			this.player.jumping = false;
+			//this.player.jumping = false;
 		}
 		this.player.update(this.dt);
 	},
@@ -117,7 +118,9 @@ app.dragAndJump = {
 			else{
 				self.player.isOnSolidGound = false
 				if(!self.player.jumping)
-					self.player.gravity = 2;
+					self.player.gravity = 3;
+				else
+					self.player.gravity = 0;
 			}
 		});
 	},
