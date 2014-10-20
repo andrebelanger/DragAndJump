@@ -4,13 +4,33 @@
 	<meta charset="utf-8" />
 	<style type="text/css">
 		body { margin: 0; padding: 0; background: #999;}
-		canvas { display: block; margin: 0.5em auto; background: #fff; }
+		<!--canvas { display: block; margin: 0.5em auto; background: #fff; }-->
+		 #mainCanvas {
+         background: #ffffff;
+         position:absolute;
+         z-index: 0;
+         left: 10px;
+         top: 10px;
+         box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+      }
+		
+		#topCanvas {
+		background: rgba(0,0,0,0);
+		position:absolute;
+		left: 10px;
+		top: 10px;
+		z-index: 1;
+	  }
 	</style>
 	<title>Drag and Jump</title>
 </head>
 <body>
 	
 	<canvas id="mainCanvas" width='640' height='480'>
+		Get a real browser!
+	</canvas>
+	
+	<canvas id="topCanvas" width='640' height='480'>
 		Get a real browser!
 	</canvas>
 	<script src="js/dragAndJump.js"></script>

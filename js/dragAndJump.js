@@ -7,6 +7,8 @@ app.dragAndJump = {
 	WIDTH : 640,
 	HEIGHT: 480,
 	canvas: undefined,
+	topCanvas: undefined,
+	topCtx: undefined,
 	ctx: undefined,
 	player: undefined,
 	platforms: [],
@@ -26,6 +28,12 @@ app.dragAndJump = {
 		this.canvas.width = this.WIDTH;
 		this.canvas.height = this.HEIGHT;
 		this.ctx = this.canvas.getContext('2d');
+		
+		this.topCanvas = document.querySelector('#topCanvas');
+		this.topCanvas.width = this.WIDTH;
+		this.topCanvas.height = this.HEIGHT;
+		this.topCtx = this.topCanvas.getContext('2d');
+		
 		
 		// set up player
 		this.player = player;
@@ -47,13 +55,7 @@ app.dragAndJump = {
 		
 		
 		this.draggingPlatform = new app.Platform(50,50,50,50);
-		//this.platformDragger.log();
-		
-		// Hook up event listeners
-		this.canvas.onmousedown = this.doMousedown;
-		this.canvas.onmousemove = this.doMousemove;
-		this.canvas.onmouseup = this.doMouseup;
-		this.canvas.onmouseout = this.doMouseout;
+
 		
 		this.update();
 	},
@@ -162,41 +164,43 @@ app.dragAndJump = {
 				ay + a.height >= by;
 	},
 	
-	doMousedown : function(e){
+	clearTopCanvas: function() {
+		this.topCtx.clearRect(0,0,this.topCanvas.width,topCanvas.height);
+	},
+	
+	doMousedown : function(mouse){
 		this.origin = {}
-		this.origin.x = e.pageX - e.target.offsetLeft;
-		this.origin.y = e.pageY - e.target.offsetTop;
+		this.origin.x = mouse.x;
+		this.origin.y = mouse.y;
 		
 		this.dragging = true;
 		
-		//console.log("X: " + this.origin.x + " Y: " + this.origin.y);
+		console.log("X: " + this.origin.x + " Y: " + this.origin.y);
 	},
 	
-	doMousemove : function(e){
-		//console.log("MouseMove");
-		if(!this.dragging) return;
-		var mouse = {}
-		mouse.x = e.pageX - e.target.offsetLeft;
-		mouse.y = e.pageY - e.target.offsetTop;
+	doMousemove : function(mouse){
+		console.log("MouseMove");
+
 		
 		var x = Math.min(mouse.x,this.origin.x);
 		var y = Math.min(mouse.y,this.origin.y);
 		var w = Math.abs(mouse.x - this.origin.x);
 		var h = Math.abs(mouse.y - this.origin.y);
 		
+		this.clearTopCanvas();
 		//console.log(this.canvas.getContext('2d'));
-		//this.ctx.fillStyle="purple";
-		//this.ctx.fillRect(x,y,w,h);
+		this.topCtx.fillStyle="purple";
+		this.topCtx.fillRect(x,y,w,h);
 		
 		//this.draggingPlatform = new app.Platform(50,50,50,50);
 	},
 	
-	doMouseup : function(e) {
-		//console.log("MouseUp");
+	doMouseup : function() {
+		console.log("MouseUp");
 		this.dragging = false;
 	},
 	
-	doMouseout : function(e) {
-		//console.log("MouseOut");
+	doMouseout : function() {
+		console.log("MouseOut");
 	}
 } // end app.dragAndJump

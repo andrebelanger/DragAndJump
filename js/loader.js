@@ -16,6 +16,8 @@ app.IMAGES = {
 	gateImage:"images/gate.png"
 };
 
+app.mouseDown = false;
+
 app.keydown = []; 
 
 window.onload = function(){
@@ -34,11 +36,34 @@ window.onload = function(){
 		{id: "gateImage", src:"images/gate.png"}
 	]);
 
+	 
 	// key press event listeners
 	window.addEventListener("keydown", function(e){
 		app.keydown[e.keyCode] = true;
 	});
 	window.addEventListener("keyup", function(e){
 		app.keydown[e.keyCode] = false;
+	});
+	
+	window.addEventListener("mousedown" , function(e){
+		var mouse = {}
+		mouse.x = e.pageX - e.target.offsetLeft;
+		mouse.y = e.pageY - e.target.offsetTop;
+		app.mouseDown = true;
+		app.dragAndJump.doMousedown(mouse);
+	});
+	
+	window.addEventListener("mousemove" , function(e){
+		var mouse = {}
+		mouse.x = e.pageX - e.target.offsetLeft;
+		mouse.y = e.pageY - e.target.offsetTop;
+		if(app.mouseDown){
+			app.dragAndJump.doMousemove(mouse)
+		}
+	});
+	
+	window.addEventListener("mouseup" , function(e){
+		app.mouseDown = false;
+		app.dragAndJump.doMouseup()
 	});
 }
