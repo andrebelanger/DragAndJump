@@ -6,7 +6,7 @@ app.Platform = function(){
 
 	
 	function Platform(x,y,width,height){
-		console.log(width + "x" + height + " platform created at " + x + "," + y);
+		//console.log(width + "x" + height + " platform created at " + x + "," + y);
 		
 		// set size and starting position of platform
 		this.x = x;

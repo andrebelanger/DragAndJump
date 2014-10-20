@@ -15,6 +15,7 @@ app.dragAndJump = {
 	dt: 1/60.0, // "delta time"
 	dragging: false,
 	origin: undefined,
+	draggingPlatform: undefined,
 	app:undefined,
 
 	// methods
@@ -44,6 +45,8 @@ app.dragAndJump = {
 		// set up gate
 		this.gate = new app.Gate(100,100);
 		
+		
+		this.draggingPlatform = new app.Platform(50,50,50,50);
 		//this.platformDragger.log();
 		
 		// Hook up event listeners
@@ -82,6 +85,9 @@ app.dragAndJump = {
 			this.platforms[i].draw(this.ctx);
 		};
 		this.gate.draw(this.ctx);
+		
+		if(this.dragging)
+			this.draggingPlatform.draw(this.ctx);
 	},
 
 	moveSprites: function(){
@@ -161,18 +167,36 @@ app.dragAndJump = {
 		this.origin.x = e.pageX - e.target.offsetLeft;
 		this.origin.y = e.pageY - e.target.offsetTop;
 		
-		console.log("X: " + this.origin.x + " Y: " + this.origin.y);
+		this.dragging = true;
+		
+		//console.log("X: " + this.origin.x + " Y: " + this.origin.y);
 	},
 	
 	doMousemove : function(e){
-		console.log("MouseMove");
+		//console.log("MouseMove");
+		if(!this.dragging) return;
+		var mouse = {}
+		mouse.x = e.pageX - e.target.offsetLeft;
+		mouse.y = e.pageY - e.target.offsetTop;
+		
+		var x = Math.min(mouse.x,this.origin.x);
+		var y = Math.min(mouse.y,this.origin.y);
+		var w = Math.abs(mouse.x - this.origin.x);
+		var h = Math.abs(mouse.y - this.origin.y);
+		
+		//console.log(this.canvas.getContext('2d'));
+		//this.ctx.fillStyle="purple";
+		//this.ctx.fillRect(x,y,w,h);
+		
+		//this.draggingPlatform = new app.Platform(50,50,50,50);
 	},
 	
 	doMouseup : function(e) {
-		console.log("MouseUp");
+		//console.log("MouseUp");
+		this.dragging = false;
 	},
 	
 	doMouseout : function(e) {
-		console.log("MouseOut");
+		//console.log("MouseOut");
 	}
 } // end app.dragAndJump
