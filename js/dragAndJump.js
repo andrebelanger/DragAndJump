@@ -10,19 +10,22 @@ app.dragAndJump = {
 	ctx: undefined,
 	player: undefined,
 	platforms: [],
+	drawnPlatforms: [],
 	gate: undefined,
 	dt: 1/60.0, // "delta time"
+	dragging: false,
+	platformDragger: undefined,
 	app:undefined,
 
 	// methods
 	init : function(player, platform){
 		console.log("app.dragAndJump.init() called");
 
-		this.canvas = document.querySelector('canvas');
+		this.canvas = document.querySelector('#mainCanvas');
 		this.canvas.width = this.WIDTH;
 		this.canvas.height = this.HEIGHT;
 		this.ctx = this.canvas.getContext('2d');
-
+		
 		// set up player
 		this.player = player;
 		var image = new Image();
@@ -47,26 +50,30 @@ app.dragAndJump = {
 	update : function(){
 		// clear screen
 		this.ctx.clearRect(0,0,this.WIDTH, this.HEIGHT);
-
-		// UPDATE
-		this.moveSprites();
-
 		this.ctx.fillStyle = "gray";
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
+		
+		// UPDATE
+		this.moveSprites();
+		
 		
 		// CHECK FOR COLLISIONS
 		this.checkForCollisions();
 
 		// DRAW
+		this.drawSprites();
+
+		// LOOP
+		requestAnimationFrame(this.update.bind(this));
+	},
+	
+	drawSprites: function() {
 		this.player.draw(this.ctx);
 		//this.platform.draw(this.ctx);
 		for(var i=0; i < this.platforms.length; i++){
 			this.platforms[i].draw(this.ctx);
 		};
 		this.gate.draw(this.ctx);
-
-		// LOOP
-		requestAnimationFrame(this.update.bind(this));
 	},
 
 	moveSprites: function(){
@@ -139,5 +146,18 @@ app.dragAndJump = {
 				ax + a.width >= bx &&
 			   ay <= by + b.height &&
 				ay + a.height >= by;
+	},
+	
+	function getMouse(e){
+		var mouse = {}
+		mouse.x = e.pageX - e.target.offsetLeft;
+		mouse.y = e.pageY - e.target.offsetTop;
+		return mouse;
+	},
+	
+	doMouseMove(e){
+		if(!dragging)
+			return;
+		var mouse = getMouse.
 	}
 } // end app.dragAndJump
