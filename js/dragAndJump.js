@@ -15,9 +15,7 @@ app.dragAndJump = {
 	drawnPlatforms: [],
 	gate: undefined,
 	dt: 1/60.0, // "delta time"
-	dragging: false,
 	origin: undefined,
-	draggingPlatform: undefined,
 	app:undefined,
 
 	// methods
@@ -33,6 +31,7 @@ app.dragAndJump = {
 		this.topCanvas.width = this.WIDTH;
 		this.topCanvas.height = this.HEIGHT;
 		this.topCtx = this.topCanvas.getContext('2d');
+		this.topCtx.globalAlpha = 0.25;
 		
 		
 		// set up player
@@ -52,10 +51,6 @@ app.dragAndJump = {
 
 		// set up gate
 		this.gate = new app.Gate(100,100);
-		
-		
-		this.draggingPlatform = new app.Platform(50,50,50,50);
-
 		
 		this.update();
 	},
@@ -88,8 +83,6 @@ app.dragAndJump = {
 		};
 		this.gate.draw(this.ctx);
 		
-		if(this.dragging)
-			this.draggingPlatform.draw(this.ctx);
 	},
 
 	moveSprites: function(){
@@ -172,32 +165,32 @@ app.dragAndJump = {
 		this.origin = {}
 		this.origin.x = mouse.x;
 		this.origin.y = mouse.y;
-		
-		this.dragging = true;
-		
-		console.log("X: " + this.origin.x + " Y: " + this.origin.y);
 	},
 	
 	doMousemove : function(mouse){
-		console.log("MouseMove");
 
-		
 		var x = Math.min(mouse.x,this.origin.x);
 		var y = Math.min(mouse.y,this.origin.y);
 		var w = Math.abs(mouse.x - this.origin.x);
 		var h = Math.abs(mouse.y - this.origin.y);
 		
 		this.clearTopCanvas();
-		//console.log(this.canvas.getContext('2d'));
 		this.topCtx.fillStyle="purple";
 		this.topCtx.fillRect(x,y,w,h);
 		
-		//this.draggingPlatform = new app.Platform(50,50,50,50);
 	},
 	
-	doMouseup : function() {
-		console.log("MouseUp");
-		this.dragging = false;
+	doMouseup : function(mouse) {
+		this.clearTopCanvas();
+		
+		var x = Math.min(mouse.x,this.origin.x);
+		var y = Math.min(mouse.y,this.origin.y);
+		var w = Math.abs(mouse.x - this.origin.x);
+		var h = Math.abs(mouse.y - this.origin.y);
+		
+		var platform = new app.Platform(x+w/2,y+h/2,w,h);
+		platform.color = 'purple';
+		this.platforms.push(platform);
 	},
 	
 	doMouseout : function() {

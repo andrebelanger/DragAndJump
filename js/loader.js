@@ -63,7 +63,10 @@ window.onload = function(){
 	});
 	
 	window.addEventListener("mouseup" , function(e){
+		var mouse = {}
+		mouse.x = e.pageX - e.target.offsetLeft;
+		mouse.y = e.pageY - e.target.offsetTop;
 		app.mouseDown = false;
-		app.dragAndJump.doMouseup()
+		app.dragAndJump.doMouseup(mouse)
 	});
 }
