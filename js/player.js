@@ -70,6 +70,5 @@ app.player = {
 	
 	moveRight: function(dt){
 		this.x += this.speed * dt;
-	}	
-	
+	}
 }; // end app.player

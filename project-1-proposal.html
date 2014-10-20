@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link href='http://fonts.googleapis.com/css?family=Allerta+Stencil' rel='stylesheet' type='text/css'>
+	<title>Project 1 Proposal</title>
+	<style type="text/css">
+	body{
+		margin-left:5%;
+		margin-right:5%;
+		background-color:#00008B;
+		font-family: verdana;
+	}
+	
+	#content{
+		background-color:white;
+		padding: 0 1em .5em 1em;
+	}
+	h1,h2,h3{
+		font-family: 'Allerta Stencil', sans-serif;
+		margin-bottom:0;
+		padding-bottom:0;
+	}
+	
+	h3{
+		color: #555;
+	}
+	
+	h2 + p, h3 + p{
+		margin-top:0.25em;
+	}
+	
+	li{
+		margin-bottom: 1em;
+	}
+	
+	section{
+		border-bottom: solid 1px gray;
+	}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<div id="review">
+			<h1><em>Drag and Jump</em></h1>
+			
+			<section>
+				<h2>High Concept</h2>
+				<p>A 2D platformer where the player makes (some of) the platforms!</p>
+			</section>
+			
+			<section>
+				<h2>Genre</h2>
+				<p>Puzzle-Platformer</p>
+			</section>
+			
+			<section>
+				<h2>Story</h2>
+				<p>Like most platformers, the story will be fairly simple. The player's goal is to reach the exit gate at the top of each level as fast as possible.</p>
+			</section>
+			
+			<section>
+				<h2>Esthetics</h2>
+				<p>Graphics style - Very simple, with basic shapes and pixel art akin to Bit.Trip Runner.</p>
+				<p>Sound - For the building phase, ambient 8-bit (think FEZ OST), with a faster paced techno version for the platforming phase.</p>
+			</section>
+			
+			<section>
+				<h2>Gameplay</h2>
+				<h3>Mechanics</h3>
+				<p>Each level will take up the entire canvas screen, meaning the 'camera' will remain static. Levels will consist of a few platforms and formations, 
+				as well as pre-set starting locations for the player and level gate. Before the player begins the level, they have the ability to create a limited amount of
+				platforms to aid them in platforming.</p>
+				
+				<h3>Control</h3>
+				<h4>Drag (Building) Phase</h4>
+				<p>The player can create rectangular platforms by clicking and dragging from the rectangle's origin point to its endpoint, similar to highlighting areas on the desktop
+				of most OSes. The amount of platforms that can be drawn will be limited based on the platforms size. Drawn platforms can be deleted by clicking on them and pressing the
+				delete key.</p>
+				<h4>Jump (Platforming) Phase</h4>
+				<p>Controls during platforming will be similar to most other web-based platformers. WASD for player movement, with the 'SPACE' key used for jumping.</p>
+				
+				<h3>Teaching the game</h3>
+				<p>For the initial prototypes, an instructions screen detailing the game mechanics and controls will be accessible from the main menu. In future versions, an optional tutorial
+				level will be implemented to allow the player to learn by doing, instead of reading.</p>
+				<h3>Player learning</h3>
+				<p>The main challenge of the game is trying to figure out the limitations of the player-character's platforming abilities, and drawing platforms in appropriate places
+					in order to reach the exit gate as quickly and as efficiently as possible, as the player will be graded based on their completion time and the amount of platforms
+					drawn. Over-reliance on drawing platforms as well as longer finish times will adversely affect the player's score.
+				</p>
+			</section>
+			
+			<section>
+				<h2>Screenshots</h2>
+				<h3>Drag Phase</h3>
+				<img alt="Building Phase" src="images/buildmockup.png" style="width:50%; height:50%;" />
+				<h3>Jump Phase</h3>
+				<img alt="Building Phase" src="images/platformmockup.png" style="width:50%; height:50%;" />
+				<p>Note: These mockups were made up of assets taken from various sources, and are not indicative of the final game's presentation</p>
+			</section>
+			
+			<section>
+				<h2>About the developer</h2>
+				<p>I'm Andre Belanger, a 4th-year Game Design and Development major, and my skill set leans towards programming, specifically with User Interface Design. While I have
+					had JavaScript experience with a previous internship and other courses, this will be the first game project I have had involving JavaScript.</p>
+				</section>
+		</div>
+	</div>
+</body>
+</html>

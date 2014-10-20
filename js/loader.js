@@ -21,7 +21,7 @@ app.keydown = [];
 window.onload = function(){
 	console.log("window.onload called");
 	app.dragAndJump.app = app;
-	//app.dragAndJump.platformDragger = app.platformDragger;
+	app.dragAndJump.platformDragger = app.platformDragger;
 	
 	app.queue = new createjs.LoadQueue(false);
 	app.queue.installPlugin(createjs.Sound);

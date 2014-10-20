@@ -43,7 +43,15 @@ app.dragAndJump = {
 
 		// set up gate
 		this.gate = new app.Gate(100,100);
-
+		
+		//this.platformDragger.log();
+		
+		// Hook up event listeners
+		this.canvas.onmousedown = this.platformDragger.doMousedown;
+		this.canvas.onmousemove = this.platformDragger.doMousemove;
+		this.canvas.onmouseup = this.platformDragger.doMouseup;
+		this.canvas.onmouseout = this.platformDragger.doMouseout;
+		
 		this.update();
 	},
 
@@ -148,7 +156,7 @@ app.dragAndJump = {
 				ay + a.height >= by;
 	},
 	
-	function getMouse(e){
+	/*function getMouse(e){
 		var mouse = {}
 		mouse.x = e.pageX - e.target.offsetLeft;
 		mouse.y = e.pageY - e.target.offsetTop;
@@ -159,5 +167,5 @@ app.dragAndJump = {
 		if(!dragging)
 			return;
 		var mouse = getMouse.
-	}
+	}*/
 } // end app.dragAndJump
