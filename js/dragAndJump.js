@@ -14,7 +14,7 @@ app.dragAndJump = {
 	gate: undefined,
 	dt: 1/60.0, // "delta time"
 	dragging: false,
-	platformDragger: undefined,
+	origin: undefined,
 	app:undefined,
 
 	// methods
@@ -47,10 +47,10 @@ app.dragAndJump = {
 		//this.platformDragger.log();
 		
 		// Hook up event listeners
-		this.canvas.onmousedown = this.platformDragger.doMousedown;
-		this.canvas.onmousemove = this.platformDragger.doMousemove;
-		this.canvas.onmouseup = this.platformDragger.doMouseup;
-		this.canvas.onmouseout = this.platformDragger.doMouseout;
+		this.canvas.onmousedown = this.doMousedown;
+		this.canvas.onmousemove = this.doMousemove;
+		this.canvas.onmouseup = this.doMouseup;
+		this.canvas.onmouseout = this.doMouseout;
 		
 		this.update();
 	},
@@ -156,16 +156,23 @@ app.dragAndJump = {
 				ay + a.height >= by;
 	},
 	
-	/*function getMouse(e){
-		var mouse = {}
-		mouse.x = e.pageX - e.target.offsetLeft;
-		mouse.y = e.pageY - e.target.offsetTop;
-		return mouse;
+	doMousedown : function(e){
+		this.origin = {}
+		this.origin.x = e.pageX - e.target.offsetLeft;
+		this.origin.y = e.pageY - e.target.offsetTop;
+		
+		console.log("X: " + this.origin.x + " Y: " + this.origin.y);
 	},
 	
-	doMouseMove(e){
-		if(!dragging)
-			return;
-		var mouse = getMouse.
-	}*/
+	doMousemove : function(e){
+		console.log("MouseMove");
+	},
+	
+	doMouseup : function(e) {
+		console.log("MouseUp");
+	},
+	
+	doMouseout : function(e) {
+		console.log("MouseOut");
+	}
 } // end app.dragAndJump
