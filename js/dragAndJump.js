@@ -16,6 +16,7 @@ app.dragAndJump = {
 	gate: undefined,
 	dt: 1/60.0, // "delta time"
 	origin: undefined,
+	hud: undefined,
 	app:undefined,
 
 	// methods
@@ -52,6 +53,10 @@ app.dragAndJump = {
 		// set up gate
 		this.gate = new app.Gate(100,100);
 		
+		this.hud.sizeLeft = 400;
+		this.hud.draggingSize = 0;
+		
+		
 		this.update();
 	},
 
@@ -76,12 +81,15 @@ app.dragAndJump = {
 	},
 	
 	drawSprites: function() {
+		this.hud.draw(this.ctx);
 		this.player.draw(this.ctx);
 		//this.platform.draw(this.ctx);
 		for(var i=0; i < this.platforms.length; i++){
 			this.platforms[i].draw(this.ctx);
 		};
 		this.gate.draw(this.ctx);
+		
+		
 		
 	},
 
@@ -178,6 +186,8 @@ app.dragAndJump = {
 		this.topCtx.fillStyle="purple";
 		this.topCtx.fillRect(x,y,w,h);
 		
+		this.hud.draggingSize = w*h;
+		
 	},
 	
 	doMouseup : function(mouse) {
@@ -188,9 +198,15 @@ app.dragAndJump = {
 		var w = Math.abs(mouse.x - this.origin.x);
 		var h = Math.abs(mouse.y - this.origin.y);
 		
-		var platform = new app.Platform(x+w/2,y+h/2,w,h);
-		platform.color = 'purple';
-		this.platforms.push(platform);
+		if(this.hud.canPlacePlatform)
+		{
+			var platform = new app.Platform(x+w/2,y+h/2,w,h);
+			platform.color = 'purple';
+			this.platforms.push(platform);
+			
+			this.hud.sizeLeft -= platform.size/20;
+		}
+		this.hud.draggingSize = 0;
 	},
 	
 	doMouseout : function() {

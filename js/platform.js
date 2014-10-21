@@ -13,6 +13,7 @@ app.Platform = function(){
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.size = width * height;
 		this.color = "black";
 	};
 	
