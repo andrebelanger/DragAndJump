@@ -78,19 +78,23 @@ window.onload = function(){
 	});
 	
 	window.addEventListener("mousemove" , function(e){
-		var mouse = {}
-		mouse.x = e.pageX - e.target.offsetLeft;
-		mouse.y = e.pageY - e.target.offsetTop;
-		if(app.mouseDown){
-			app.dragAndJump.doMousemove(mouse)
+		if(app.dragPhase) {
+			var mouse = {}
+			mouse.x = e.pageX - e.target.offsetLeft;
+			mouse.y = e.pageY - e.target.offsetTop;
+			if(app.mouseDown){
+				app.dragAndJump.doMousemove(mouse)
+			}
 		}
 	});
 	
 	window.addEventListener("mouseup" , function(e){
-		var mouse = {}
-		mouse.x = e.pageX - e.target.offsetLeft;
-		mouse.y = e.pageY - e.target.offsetTop;
-		app.mouseDown = false;
-		app.dragAndJump.doMouseup(mouse)
+		if(app.dragPhase) {
+			var mouse = {}
+			mouse.x = e.pageX - e.target.offsetLeft;
+			mouse.y = e.pageY - e.target.offsetTop;
+			app.mouseDown = false;
+			app.dragAndJump.doMouseup(mouse)
+		}
 	});
 }

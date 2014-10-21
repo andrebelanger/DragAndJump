@@ -4,8 +4,10 @@ var app = app || {};
 
 app.player = {
 	color: "red",
-	x: 320,
+	x: 50,
 	y: 470,
+	startingX: 50,
+	startingY: 470,
 	width: 16,
 	height: 20,
 	speed: 250,
@@ -36,8 +38,8 @@ app.player = {
 	},
 	
 	reset: function() {
-		this.x = 320;
-		this.y = 470;
+		this.x = this.startingX;
+		this.y = this.startingY;
 	},
 	
 	update: function(dt) {

@@ -18,12 +18,16 @@ app.Gate = function(){
 	{
 		var halfW = this.width/2;
 		var halfH = this.height/2;
-		ctx.save();
 		
-		ctx.fillStyle = this.color;
-		ctx.fillRect(this.x - halfW, this.y - halfH, this.width, this.height);
-		
-		ctx.restore();
+		if(!this.image)
+		{
+			ctx.save();
+			ctx.fillStyle = this.color;
+			ctx.fillRect(this.x - halfW, this.y - halfH, this.width, this.height);
+			ctx.restore();
+		} else {
+			ctx.drawImage(this.image, this.x-halfW, this.y-halfH);
+		}
 	}
 
 	return Gate;

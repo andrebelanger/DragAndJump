@@ -13,12 +13,13 @@ app.dragAndJump = {
 	player: undefined,
 	platforms: [],
 	drawnPlatforms: [],
+	currentLevel: 1,
 	gate: undefined,
 	dt: 1/60.0, // "delta time"
 	origin: undefined,
 	hud: undefined,
 	drawLib: undefined,
-	sountrack: undefined,
+	soundtrack: undefined,
 	app:undefined,
 
 	// methods
@@ -49,11 +50,16 @@ app.dragAndJump = {
 		//this.platform = platform;
 		//this.platform.init(380,460,50,60);
 		
-		this.platforms.push(new app.Platform(380,460,50,60));
-		this.platforms.push(new app.Platform(470,420,50,30));
+		
+		
 
 		// set up gate
-		this.gate = new app.Gate(100,400);
+		/*this.gate = new app.Gate(50,50);
+		var image = new Image();
+		image.src = this.app.IMAGES['gateImage'];
+		this.gate.image = image; */
+		
+		this.loadLevel(this.currentLevel);
 		
 		this.hud.sizeLeft = 400;
 		this.hud.draggingSize = 0;
@@ -78,13 +84,49 @@ app.dragAndJump = {
 		
 		this.init(player);
 	},
+	
+	loadLevel : function(level) {
+		this.platforms = [];
+		app.jumpPhase = false;
+		app.dragPhase = true;
+		switch(level) {
+			case 1:
+				this.platforms.push(new app.Platform(150,430,60,15));
+				this.platforms.push(new app.Platform(300,350,60,15));
+				this.platforms.push(new app.Platform(450,270,60,15));
+				this.platforms.push(new app.Platform(300,190,60,15));
+				this.platforms.push(new app.Platform(450,110,60,15));
+				this.platforms.push(new app.Platform(600,95,100,15));
+				this.gate = new app.Gate(600,75);
+				this.player.startingX = 50;
+				this.player.startingY = 470;
+			break;
+			case 2:
+				this.platforms.push(new app.Platform(150,460,50,30));
+				this.platforms.push(new app.Platform(250,420,50,30));
+				this.platforms.push(new app.Platform(520,350,50,30));
+				this.platforms.push(new app.Platform(480,250,50,30));
+				this.player.startingX = 50;
+				this.player.startingY = 470;
+				this.gate = new app.Gate(50,50);
+			break;
+			case 3:
+				app.over = true;
+				app.jumpPhase = false;
+			break;
+		}
+		
+				this.player.reset();
+				var image = new Image();
+				image.src = this.app.IMAGES['gateImage'];
+				this.gate.image = image; 
+	},
 
 	update : function(){
 		//console.log(app.title);
 		// clear screen
 		this.ctx.clearRect(0,0,this.WIDTH, this.HEIGHT);
-		this.ctx.fillStyle = "gray";
-		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
+		this.drawLib.backgroundGradient(this.ctx,this.WIDTH,this.HEIGHT);
 		
 		if(app.title){
 			this.drawTitleScreen(this.ctx);
@@ -146,7 +188,7 @@ app.dragAndJump = {
 			if(this.player.isOnSolidGround){
 				this.player.jumping = true;
 				this.player.isOnSolidGround = false;
-				createjs.Sound.play("jump");
+				createjs.Sound.play("jump", {volume:0.2});
 			} 
 		} else {
 			//this.player.jumping = false;
@@ -193,8 +235,8 @@ app.dragAndJump = {
 		
 		// player v. gate
 		if(this.collides(self.player, self.gate)) {
-			app.jumpPhase = false;
-			app.over = true;
+			this.currentLevel++;
+			this.loadLevel(this.currentLevel);
 		}
 	},
 	
@@ -232,7 +274,7 @@ app.dragAndJump = {
 		this.topCtx.fillStyle="purple";
 		this.topCtx.fillRect(x,y,w,h);
 		
-		this.hud.draggingSize = w*h;	
+		this.hud.draggingSize = w;	
 	},
 	
 	doMouseup : function(mouse) {

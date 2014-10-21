@@ -18,11 +18,11 @@ app.drawLib = {
 		ctx.save();
 		// Create gradient - top to bottom
 		var grad = ctx.createLinearGradient(0,0,0,height);
-		grad.addColorStop(0,"#00CCFF"); // top
-		grad.addColorStop(0.33,"#9900CC"); // 33% down
-		grad.addColorStop(0.50,"#FF4D4D"); // 50% down
-		grad.addColorStop(0.85,"#FF9900"); // 85% down
-		grad.addColorStop(1,"#009933"); // bottom
+		grad.addColorStop(0.0,"#9900CC");
+		grad.addColorStop(0.33,"#FF4D4D");
+		grad.addColorStop(0.50,"#FF9900");
+		grad.addColorStop(0.85,"#00CCFF");
+		grad.addColorStop(1,"#009933"); 
 		
 		// change this to fill entire ctx with gradient
 		ctx.fillStyle = grad;
