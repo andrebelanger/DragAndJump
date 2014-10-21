@@ -52,7 +52,7 @@ app.dragAndJump = {
 		this.platforms.push(new app.Platform(470,420,50,30));
 
 		// set up gate
-		this.gate = new app.Gate(100,100);
+		this.gate = new app.Gate(100,400);
 		
 		this.hud.sizeLeft = 400;
 		this.hud.draggingSize = 0;
@@ -63,10 +63,22 @@ app.dragAndJump = {
 	
 	reset : function(player) {
 		app.dragPhase = true;
+		
+		// reset variables
+		this.canvas = undefined;
+		this.topCanvas = undefined;
+		this.topCtx = undefined;
+		this.ctx = undefined;
+		this.platforms = [];
+		this.drawnPlatforms = [];
+		this.gate = undefined;
+		this.player.reset();
+		
 		this.init(player);
 	},
 
 	update : function(){
+		//console.log(app.title);
 		// clear screen
 		this.ctx.clearRect(0,0,this.WIDTH, this.HEIGHT);
 		this.ctx.fillStyle = "gray";
@@ -77,12 +89,28 @@ app.dragAndJump = {
 			return;
 		}
 		
+		if(app.over){
+			this.drawGameOverScreen(this.ctx);
+			return;
+		}
+		
+		if(app.dragPhase) {
+			// if enter is pressed, move on to jumpPhase
+			if(this.app.keydown[this.app.KEYBOARD.KEY_ENTER]){
+				app.dragPhase = false;
+				app.jumpPhase = true;
+			}
+		}
+		
+		if(app.jumpPhase) {
 		// UPDATE
 		this.moveSprites();
 		
 		
 		// CHECK FOR COLLISIONS
 		this.checkForCollisions();
+		
+		}
 
 		// DRAW
 		this.drawSprites();
@@ -159,6 +187,12 @@ app.dragAndJump = {
 					self.player.gravity = 0;
 			}
 		});
+		
+		// player v. gate
+		if(this.collides(self.player, self.gate)) {
+			app.jumpPhase = false;
+			app.over = true;
+		}
 	},
 	
 	collides: function (a, b) {
@@ -227,5 +261,11 @@ app.dragAndJump = {
 		this.drawLib.text(ctx, "Drag and Jump", 130, 100, 50, 'white');
 		ctx.restore();
 	},
+	
+	drawGameOverScreen: function(ctx) {
+		ctx.save();
+		this.drawLib.text(ctx, "Game Over", 130, 100, 50, 'white');
+		ctx.restore();
+	}
 	
 } // end app.dragAndJump

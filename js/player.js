@@ -35,6 +35,11 @@ app.player = {
 
 	},
 	
+	reset: function() {
+		this.x = 320;
+		this.y = 470;
+	},
+	
 	update: function(dt) {
 		this.y += this.gravity;
 		if(this.y >= 470) {

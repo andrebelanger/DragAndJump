@@ -8,7 +8,8 @@ app.KEYBOARD = {
 	"KEY_UP": 38,
 	"KEY_RIGHT": 39,
 	"KEY_DOWN": 40,
-	"KEY_SPACE": 32
+	"KEY_SPACE": 32,
+	"KEY_ENTER": 13
 };
 
 app.IMAGES = {
@@ -22,7 +23,7 @@ app.mouseDown = false;
 app.paused = false;
 app.title = true;
 app.dragPhase = false;
-app.buildPhase = false;
+app.jumpPhase = false;
 app.over = false;
 
 
@@ -50,6 +51,11 @@ window.onload = function(){
 	// key press event listeners
 	window.addEventListener("keydown", function(e){
 		app.keydown[e.keyCode] = true;
+		if(e.keyCode == 13 && app.over) {
+			app.title = true;
+			app.over = false;
+			app.dragAndJump.update();
+		}
 	});
 	window.addEventListener("keyup", function(e){
 		app.keydown[e.keyCode] = false;
