@@ -18,6 +18,7 @@ app.dragAndJump = {
 	origin: undefined,
 	hud: undefined,
 	drawLib: undefined,
+	sountrack: undefined,
 	app:undefined,
 
 	// methods
@@ -57,7 +58,8 @@ app.dragAndJump = {
 		this.hud.sizeLeft = 400;
 		this.hud.draggingSize = 0;
 		
-		
+		// play the soundtrack at 40% volume, loop forever
+		//this.soundtrack = createjs.Sound.play("soundtrack", {loop:-1, volume:0.4});
 		this.update();
 	},
 	
@@ -144,6 +146,7 @@ app.dragAndJump = {
 			if(this.player.isOnSolidGround){
 				this.player.jumping = true;
 				this.player.isOnSolidGround = false;
+				createjs.Sound.play("jump");
 			} 
 		} else {
 			//this.player.jumping = false;

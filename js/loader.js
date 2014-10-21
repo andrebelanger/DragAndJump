@@ -44,7 +44,10 @@ window.onload = function(){
 	
 	app.queue.loadManifest([
 		{id: "playerImage", src:"images/player.png"},
-		{id: "gateImage", src:"images/gate.png"}
+		{id: "gateImage", src:"images/gate.png"},
+		{id: "jump", src:"sounds/jump.wav"},
+		// "A Walk Through The City" by Eric Matyas found at http://opengameart.org/content/a-walk-through-the-city
+		{id: "soundtrack", src:"sounds/soundtrack.mp3"},
 	]);
 
 	 
