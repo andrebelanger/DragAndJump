@@ -54,10 +54,18 @@ window.onload = function(){
 	// key press event listeners
 	window.addEventListener("keydown", function(e){
 		app.keydown[e.keyCode] = true;
-		if(e.keyCode == 13 && app.over) {
-			app.title = true;
-			app.over = false;
-			app.dragAndJump.update();
+		if(e.keyCode == 13) {
+			if(app.over)
+			{
+				app.title = true;
+				app.over = false;
+				app.dragAndJump.update();
+			} else if(app.title)
+			{
+				app.title = false;
+				app.dragPhase = true;
+				app.dragAndJump.reset(app.player);
+			}
 		}
 	});
 	window.addEventListener("keyup", function(e){

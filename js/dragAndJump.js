@@ -45,20 +45,6 @@ app.dragAndJump = {
 		this.player.image = image; 
 		this.player.init();
 		
-		
-		// set up platform
-		//this.platform = platform;
-		//this.platform.init(380,460,50,60);
-		
-		
-		
-
-		// set up gate
-		/*this.gate = new app.Gate(50,50);
-		var image = new Image();
-		image.src = this.app.IMAGES['gateImage'];
-		this.gate.image = image; */
-		
 		this.loadLevel(this.currentLevel);
 		
 		this.hud.sizeLeft = 400;
@@ -80,6 +66,7 @@ app.dragAndJump = {
 		this.platforms = [];
 		this.drawnPlatforms = [];
 		this.gate = undefined;
+		this.currentLevel = 1,
 		this.player.reset();
 		
 		this.init(player);
@@ -91,6 +78,14 @@ app.dragAndJump = {
 		app.dragPhase = true;
 		switch(level) {
 			case 1:
+				this.platforms.push(new app.Platform(30, 250, 90, 20));
+				this.platforms.push(new app.Platform(330, 250, 50, 20));
+				this.platforms.push(new app.Platform(600, 250, 90, 20));
+				this.player.startingX = 10;
+				this.player.startingY = 230;
+				this.gate = new app.Gate(600,225);
+				break;
+			case 2:
 				this.platforms.push(new app.Platform(150,430,60,15));
 				this.platforms.push(new app.Platform(300,350,60,15));
 				this.platforms.push(new app.Platform(450,270,60,15));
@@ -101,7 +96,7 @@ app.dragAndJump = {
 				this.player.startingX = 50;
 				this.player.startingY = 470;
 			break;
-			case 2:
+			case 3:
 				this.platforms.push(new app.Platform(150,460,50,30));
 				this.platforms.push(new app.Platform(250,420,50,30));
 				this.platforms.push(new app.Platform(520,350,50,30));
@@ -110,7 +105,7 @@ app.dragAndJump = {
 				this.player.startingY = 470;
 				this.gate = new app.Gate(50,50);
 			break;
-			case 3:
+			case 4:
 				app.over = true;
 				app.jumpPhase = false;
 			break;
