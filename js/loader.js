@@ -18,12 +18,21 @@ app.IMAGES = {
 
 app.mouseDown = false;
 
+// GameState Properties
+app.paused = false;
+app.title = true;
+app.dragPhase = false;
+app.buildPhase = false;
+app.over = false;
+
+
 app.keydown = []; 
 
 window.onload = function(){
 	console.log("window.onload called");
 	app.dragAndJump.app = app;
 	app.dragAndJump.hud = app.hud;
+	app.dragAndJump.drawLib = app.drawLib;
 	
 	app.queue = new createjs.LoadQueue(false);
 	app.queue.installPlugin(createjs.Sound);
@@ -47,11 +56,16 @@ window.onload = function(){
 	});
 	
 	window.addEventListener("mousedown" , function(e){
-		var mouse = {}
-		mouse.x = e.pageX - e.target.offsetLeft;
-		mouse.y = e.pageY - e.target.offsetTop;
-		app.mouseDown = true;
-		app.dragAndJump.doMousedown(mouse);
+		if(app.title) {
+			app.title = false;
+			app.dragAndJump.reset(app.player);
+			return;
+		}
+			var mouse = {}
+			mouse.x = e.pageX - e.target.offsetLeft;
+			mouse.y = e.pageY - e.target.offsetTop;
+			app.mouseDown = true;
+			app.dragAndJump.doMousedown(mouse);
 	});
 	
 	window.addEventListener("mousemove" , function(e){

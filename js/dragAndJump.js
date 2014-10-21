@@ -17,10 +17,11 @@ app.dragAndJump = {
 	dt: 1/60.0, // "delta time"
 	origin: undefined,
 	hud: undefined,
+	drawLib: undefined,
 	app:undefined,
 
 	// methods
-	init : function(player, platform){
+	init : function(player){
 		console.log("app.dragAndJump.init() called");
 
 		this.canvas = document.querySelector('#mainCanvas');
@@ -59,12 +60,22 @@ app.dragAndJump = {
 		
 		this.update();
 	},
+	
+	reset : function(player) {
+		app.dragPhase = true;
+		this.init(player);
+	},
 
 	update : function(){
 		// clear screen
 		this.ctx.clearRect(0,0,this.WIDTH, this.HEIGHT);
 		this.ctx.fillStyle = "gray";
 		this.ctx.fillRect(0,0,this.WIDTH, this.HEIGHT);
+		
+		if(app.title){
+			this.drawTitleScreen(this.ctx);
+			return;
+		}
 		
 		// UPDATE
 		this.moveSprites();
@@ -88,9 +99,6 @@ app.dragAndJump = {
 			this.platforms[i].draw(this.ctx);
 		};
 		this.gate.draw(this.ctx);
-		
-		
-		
 	},
 
 	moveSprites: function(){
@@ -165,6 +173,7 @@ app.dragAndJump = {
 				ay + a.height >= by;
 	},
 	
+	/* MOUSE AND PLATFORM DRAGGING EVENTS */
 	clearTopCanvas: function() {
 		this.topCtx.clearRect(0,0,this.topCanvas.width,topCanvas.height);
 	},
@@ -186,8 +195,7 @@ app.dragAndJump = {
 		this.topCtx.fillStyle="purple";
 		this.topCtx.fillRect(x,y,w,h);
 		
-		this.hud.draggingSize = w*h;
-		
+		this.hud.draggingSize = w*h;	
 	},
 	
 	doMouseup : function(mouse) {
@@ -211,5 +219,13 @@ app.dragAndJump = {
 	
 	doMouseout : function() {
 		console.log("MouseOut");
-	}
+	},
+	
+	/* GAME STATE SCREENS */
+	drawTitleScreen: function(ctx){
+		ctx.save();
+		this.drawLib.text(ctx, "Drag and Jump", 130, 100, 50, 'white');
+		ctx.restore();
+	},
+	
 } // end app.dragAndJump
