@@ -113,7 +113,6 @@ app.dragAndJump = {
 				app.jumpPhase = false;
 			break;
 		}
-		
 				this.player.reset();
 				var image = new Image();
 				image.src = this.app.IMAGES['gateImage'];
@@ -121,7 +120,6 @@ app.dragAndJump = {
 	},
 
 	update : function(){
-		//console.log(app.title);
 		// clear screen
 		this.ctx.clearRect(0,0,this.WIDTH, this.HEIGHT);
 		this.drawLib.backgroundGradient(this.ctx,this.WIDTH,this.HEIGHT);
@@ -134,6 +132,10 @@ app.dragAndJump = {
 		if(app.over){
 			this.drawGameOverScreen(this.ctx);
 			return;
+		}
+		
+		if(this.app.keydown[this.app.KEYBOARD.KEY_R]){
+			this.loadLevel(this.currentLevel);
 		}
 		
 		if(app.dragPhase) {
@@ -164,7 +166,6 @@ app.dragAndJump = {
 	drawSprites: function() {
 		this.hud.draw(this.ctx);
 		this.player.draw(this.ctx);
-		//this.platform.draw(this.ctx);
 		for(var i=0; i < this.platforms.length; i++){
 			this.platforms[i].draw(this.ctx);
 		};
@@ -301,13 +302,17 @@ app.dragAndJump = {
 	/* GAME STATE SCREENS */
 	drawTitleScreen: function(ctx){
 		ctx.save();
-		this.drawLib.text(ctx, "Drag and Jump", 130, 100, 50, 'white');
+		this.drawLib.text(ctx, "Drag and Jump", 130, 150, 50, 'white');
+		this.drawLib.text(ctx, "by Andre Belanger", 195, 230, 25, 'white');
+		this.drawLib.text(ctx, "Press Space to Start", 200, 300, 20, 'white');
 		ctx.restore();
 	},
 	
 	drawGameOverScreen: function(ctx) {
 		ctx.save();
-		this.drawLib.text(ctx, "Game Over", 130, 100, 50, 'white');
+		this.drawLib.text(ctx, "Congratulations!", 95, 150, 50, 'white');
+		this.drawLib.text(ctx, "You completed all three levels!", 105, 220, 25, 'white');
+		this.drawLib.text(ctx, "Press Space to return to the Title Screen", 87, 280, 20, 'white');
 		ctx.restore();
 	}
 	

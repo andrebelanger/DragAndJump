@@ -21,6 +21,14 @@
 		top: 10px;
 		z-index: 1;
 	  }
+		#instructions {
+		padding: 5px;
+		position:absolute;
+		left: 10px;
+		top: 500px;
+		width: 640px;
+		font-family: arial;
+		}
 	</style>
 	<title>Drag and Jump</title>
 </head>
@@ -42,5 +50,27 @@
 	<script src="js/drawLib.js"></script>
 	<script src="http://code.createjs.com/preloadjs-0.4.1.min.js"></script>
 	<script src="http://code.createjs.com/soundjs-0.5.2.min.js"></script>
+	
+	<div id="instructions">
+	<h2>How To Play: </h2>
+	<ul>
+		<li>The goal of the game is to reach the gate!</li>
+		<li>Levels are split into two stages: "Drag" and "Jump."</li>
+		<li>Draw platforms during the Drag stage in order to help you traverse the level during 
+			the Jump stage!
+		</li>
+	</ul>
+	<h4>Drag Stage controls:</h4>
+	<ul>
+		<li>Left click and drag to draw a platform.</li>
+		<li>Press enter to end the Drag stage and enter Jump Stage</li>
+	</ul>
+	<h4>Jump Stage controls:</h4>
+	<ul>
+		<li>Arrow keys for movement, and spacebar for jump.</li>
+		<li>Press 'r' to reset the level (also works in Drag Stage).</li>
+	</ul>
+	</div>
+	
 </body>
 </html>

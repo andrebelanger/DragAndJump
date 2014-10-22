@@ -8,6 +8,7 @@ app.KEYBOARD = {
 	"KEY_UP": 38,
 	"KEY_RIGHT": 39,
 	"KEY_DOWN": 40,
+	"KEY_R": 82,
 	"KEY_SPACE": 32,
 	"KEY_ENTER": 13
 };
@@ -54,7 +55,7 @@ window.onload = function(){
 	// key press event listeners
 	window.addEventListener("keydown", function(e){
 		app.keydown[e.keyCode] = true;
-		if(e.keyCode == 13) {
+		if(e.keyCode == 32) {
 			if(app.over)
 			{
 				app.title = true;
