@@ -19,7 +19,7 @@ app.player = {
 	isOnSolidGround: true,
 
 	init: function(){
-		console.log("app.player.init() called");
+		//console.log("app.player.init() called");
 	},
 
 	draw: function(ctx) {
@@ -49,6 +49,12 @@ app.player = {
 			this.isOnSolidGround = true;
 			this.gravity = 0;
 		}
+		if(this.x >= 640){
+			this.x = 640;
+		}
+		if(this.x <= 0){
+			this.x = 0;
+		}
 		
 		if(this.jumping){
 			this.isOnSolidGround = false;
@@ -56,7 +62,6 @@ app.player = {
 			this.jumpHeight += this.speed * dt;
 			
 			if(this.jumpHeight >= this.maxJumpHeight) {
-				console.log("jump set to false");
 				this.jumping = false;
 				this.jumpHeight = 0;
 			}

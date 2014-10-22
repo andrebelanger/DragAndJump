@@ -6,12 +6,14 @@ app.hud = {
 	sizeLeft: undefined,
 	draggingSize: undefined,
 	canPlacePlatform: true,
+	text: "",
 	
 	draw : function(ctx, dragPhase) {
 		ctx.save();
 		
 		if(app.dragPhase) 
 		{
+			this.text = "Drag Stage";
 			// Draw size of drawing platforms left available
 			if(this.draggingSize*2 > this.sizeLeft)
 			{
@@ -27,7 +29,10 @@ app.hud = {
 				ctx.fillRect(225, 20, this.sizeLeft - this.draggingSize*2, 25);
 			}
 			ctx.restore();
-		}
-		
+		} 
+		else if(app.jumpPhase)
+		{
+			this.text = "Jump Stage";
+		}		
 	}
 };

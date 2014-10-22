@@ -24,7 +24,7 @@ app.dragAndJump = {
 
 	// methods
 	init : function(player){
-		console.log("app.dragAndJump.init() called");
+		//console.log("app.dragAndJump.init() called");
 
 		this.canvas = document.querySelector('#mainCanvas');
 		this.canvas.width = this.WIDTH;
@@ -49,9 +49,6 @@ app.dragAndJump = {
 		
 		this.hud.sizeLeft = 400;
 		this.hud.draggingSize = 0;
-		
-		// play the soundtrack at 40% volume, loop forever
-		//this.soundtrack = createjs.Sound.play("soundtrack", {loop:-1, volume:0.4});
 		this.update();
 	},
 	
@@ -76,6 +73,7 @@ app.dragAndJump = {
 		this.platforms = [];
 		this.hud.sizeLeft = 400;
 		this.hud.draggingSize = 0;
+		this.origin = undefined;
 		app.jumpPhase = false;
 		app.dragPhase = true;
 		switch(level) {
@@ -170,6 +168,8 @@ app.dragAndJump = {
 			this.platforms[i].draw(this.ctx);
 		};
 		this.gate.draw(this.ctx);
+		
+		this.drawLib.text(this.ctx, this.hud.text, 10, 20, 15, 'white');
 	},
 
 	moveSprites: function(){
@@ -189,8 +189,6 @@ app.dragAndJump = {
 				this.player.isOnSolidGround = false;
 				createjs.Sound.play("jump", {volume:0.2});
 			} 
-		} else {
-			//this.player.jumping = false;
 		}
 		this.player.update(this.dt);
 	},
@@ -204,7 +202,6 @@ app.dragAndJump = {
 				if(self.player.y < platform.y)
 				{
 					// landed on top of platform
-					//console.log("Platform landed on!");
 					self.player.y = platform.y-platform.height/2-self.player.height/2;
 					self.player.isOnSolidGround = true;
 					self.player.jumping = false;
@@ -296,7 +293,7 @@ app.dragAndJump = {
 	},
 	
 	doMouseout : function() {
-		console.log("MouseOut");
+		//console.log("MouseOut");
 	},
 	
 	/* GAME STATE SCREENS */

@@ -31,7 +31,7 @@ app.over = false;
 app.keydown = []; 
 
 window.onload = function(){
-	console.log("window.onload called");
+	//console.log("window.onload called");
 	app.dragAndJump.app = app;
 	app.dragAndJump.hud = app.hud;
 	app.dragAndJump.drawLib = app.drawLib;
@@ -39,9 +39,11 @@ window.onload = function(){
 	app.queue = new createjs.LoadQueue(false);
 	app.queue.installPlugin(createjs.Sound);
 	app.queue.on("complete", function(){
-		console.log("images loaded called");
+		//console.log("images loaded called");
 		app.dragAndJump.init(app.player);
+		app.soundtrack = createjs.Sound.play("soundtrack", {loop:-1, volume:0.4});
 	});
+	
 	
 	app.queue.loadManifest([
 		{id: "playerImage", src:"images/player.png"},
