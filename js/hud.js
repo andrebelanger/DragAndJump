@@ -13,7 +13,7 @@ app.hud = {
 		if(app.dragPhase) 
 		{
 			// Draw size of drawing platforms left available
-			if(this.draggingSize/20 > this.sizeLeft)
+			if(this.draggingSize*2 > this.sizeLeft)
 			{
 				this.canPlacePlatform = false;
 				ctx.fillStyle = "rgba(255,0,0, .25)";
@@ -24,11 +24,9 @@ app.hud = {
 				ctx.fillRect(225, 20, this.sizeLeft, 25);
 				
 				ctx.fillStyle = "rgba(30,144,255, .25)";
-				ctx.fillRect(225, 20, this.sizeLeft - this.draggingSize/20, 25);
+				ctx.fillRect(225, 20, this.sizeLeft - this.draggingSize*2, 25);
 			}
 			ctx.restore();
-		} else {
-			
 		}
 		
 	}

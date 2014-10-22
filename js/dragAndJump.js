@@ -74,6 +74,8 @@ app.dragAndJump = {
 	
 	loadLevel : function(level) {
 		this.platforms = [];
+		this.hud.sizeLeft = 400;
+		this.hud.draggingSize = 0;
 		app.jumpPhase = false;
 		app.dragPhase = true;
 		switch(level) {
@@ -101,6 +103,7 @@ app.dragAndJump = {
 				this.platforms.push(new app.Platform(250,420,50,30));
 				this.platforms.push(new app.Platform(520,350,50,30));
 				this.platforms.push(new app.Platform(480,250,50,30));
+				this.platforms.push(new app.Platform(30,80,100,30));
 				this.player.startingX = 50;
 				this.player.startingY = 470;
 				this.gate = new app.Gate(50,50);
@@ -286,7 +289,7 @@ app.dragAndJump = {
 			platform.color = 'purple';
 			this.platforms.push(platform);
 			
-			this.hud.sizeLeft -= platform.size/20;
+			this.hud.sizeLeft -= platform.width*2;
 		}
 		this.hud.draggingSize = 0;
 	},

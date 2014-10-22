@@ -73,11 +73,6 @@ window.onload = function(){
 	});
 	
 	window.addEventListener("mousedown" , function(e){
-		if(app.title) {
-			app.title = false;
-			app.dragAndJump.reset(app.player);
-			return;
-		}
 			var mouse = {}
 			mouse.x = e.pageX - e.target.offsetLeft;
 			mouse.y = e.pageY - e.target.offsetTop;
