@@ -52,6 +52,7 @@ app.dragAndJump = {
 		this.update();
 	},
 	
+	// reset the game
 	reset : function(player) {
 		app.dragPhase = true;
 		
@@ -69,6 +70,8 @@ app.dragAndJump = {
 		this.init(player);
 	},
 	
+	// load the given level by deleting any current platforms and pushing new platforms into
+	// platforms[] array, and resetting gate and player positions	
 	loadLevel : function(level) {
 		this.platforms = [];
 		this.hud.sizeLeft = 400;
@@ -117,25 +120,30 @@ app.dragAndJump = {
 				this.gate.image = image; 
 	},
 
+	// MAIN GAME LOOP
 	update : function(){
 		// clear screen
 		this.ctx.clearRect(0,0,this.WIDTH, this.HEIGHT);
 		this.drawLib.backgroundGradient(this.ctx,this.WIDTH,this.HEIGHT);
 		
+		// TITLE
 		if(app.title){
 			this.drawTitleScreen(this.ctx);
 			return;
 		}
 		
+		// GAME OVER
 		if(app.over){
 			this.drawGameOverScreen(this.ctx);
 			return;
 		}
 		
+		// reset the  current level
 		if(this.app.keydown[this.app.KEYBOARD.KEY_R]){
 			this.loadLevel(this.currentLevel);
 		}
 		
+		// enter Jump Phase
 		if(app.dragPhase) {
 			// if enter is pressed, move on to jumpPhase
 			if(this.app.keydown[this.app.KEYBOARD.KEY_ENTER]){
@@ -144,6 +152,7 @@ app.dragAndJump = {
 			}
 		}
 		
+		// update sprites andd check for collisions
 		if(app.jumpPhase) {
 		// UPDATE
 		this.moveSprites();
@@ -161,6 +170,7 @@ app.dragAndJump = {
 		requestAnimationFrame(this.update.bind(this));
 	},
 	
+	// draw the platforms, player, gate, and current phase from the HUD
 	drawSprites: function() {
 		this.hud.draw(this.ctx);
 		this.player.draw(this.ctx);

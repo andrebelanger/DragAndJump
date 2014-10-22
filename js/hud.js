@@ -13,8 +13,10 @@ app.hud = {
 		
 		if(app.dragPhase) 
 		{
+			// Update HUD text
 			this.text = "Drag Stage";
-			// Draw size of drawing platforms left available
+			
+			// Draw the amount of platforms the player can still place (based on platform width)
 			if(this.draggingSize*2 > this.sizeLeft)
 			{
 				this.canPlacePlatform = false;
@@ -31,7 +33,7 @@ app.hud = {
 			ctx.restore();
 		} 
 		else if(app.jumpPhase)
-		{
+		{	// Update HUD text
 			this.text = "Jump Stage";
 		}		
 	}
